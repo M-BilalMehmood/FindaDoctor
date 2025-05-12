@@ -55,7 +55,11 @@ jobs:
 
       # Create the kubernetes-secrets.yaml file from GitHub secret before applying
       - name: Create Kubernetes secrets file
-        run: printf '%s' "${{ secrets.KUBERNETES_SECRETS_YAML }}" > FindaDoctor-BE/kubernetes-secrets.yaml
+        shell: bash
+        run: |
+          cat << 'EOF' > FindaDoctor-BE/kubernetes-secrets.yaml
+          ${{ secrets.KUBERNETES_SECRETS_YAML }}
+          EOF
 
       - name: Deploy to Minikube
         run: |
