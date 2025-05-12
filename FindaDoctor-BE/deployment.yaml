@@ -23,38 +23,38 @@ spec:
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
-              name: mongodb-secret
-              key: uri
+              name: findadoctor-backend-secrets
+              key: MONGODB_URI
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: jwt-secret
-              key: token
+              name: findadoctor-backend-secrets
+              key: JWT_SECRET
         - name: CLOUDINARY_CLOUD_NAME
           valueFrom:
             secretKeyRef:
-              name: cloudinary-secret
-              key: cloud_name
+              name: findadoctor-backend-secrets
+              key: CLOUDINARY_CLOUD_NAME
         - name: CLOUDINARY_API_KEY
           valueFrom:
             secretKeyRef:
-              name: cloudinary-secret
-              key: api_key
+              name: findadoctor-backend-secrets
+              key: CLOUDINARY_API_KEY
         - name: CLOUDINARY_API_SECRET
           valueFrom:
             secretKeyRef:
-              name: cloudinary-secret
-              key: api_secret
+              name: findadoctor-backend-secrets
+              key: CLOUDINARY_API_SECRET
         - name: EMAIL_USER
           valueFrom:
             secretKeyRef:
-              name: email-secret
-              key: user
+              name: findadoctor-backend-secrets
+              key: EMAIL_USER
         - name: EMAIL_PASS
           valueFrom:
             secretKeyRef:
-              name: email-secret
-              key: pass
+              name: findadoctor-backend-secrets
+              key: EMAIL_PASS
         resources:
           limits:
             cpu: "1"
