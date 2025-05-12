@@ -81,9 +81,15 @@ jobs:
           kubectl rollout status deployment/findadoctor-backend
           kubectl rollout status deployment/findadoctor-frontend
           echo "Deployments are ready!"
-
+          
           echo "Services:"
           kubectl get services
-
+          
           echo "Access the frontend at:"
-          minikube service findadoctor-frontend-service --url
+          # Option 1: Run in background
+          minikube service findadoctor-frontend-service --url &
+          
+          # Option 2: Or use timeout to limit how long it runs
+          # timeout 5s minikube service findadoctor-frontend-service --url || true
+          
+          echo "Continuing with workflow..."
