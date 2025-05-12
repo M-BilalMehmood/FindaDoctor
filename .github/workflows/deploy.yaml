@@ -53,13 +53,17 @@ jobs:
           push: true
           tags: mbilalmehmood/findadoctor-frontend:latest
 
+      # Create the kubernetes-secrets.yaml file from GitHub secret before applying
+      - name: Create Kubernetes secrets file
+        run: echo "${{ secrets.KUBERNETES_SECRETS_YAML }}" > FindaDoctor-BE/kubernetes-secrets.yaml
+
       - name: Deploy to Minikube
         run: |
-          kubectl apply -f FindaDoctor-BE/kubernetes-secrets.yaml
           kubectl apply -f FindaDoctor-BE/deployment.yaml
           kubectl apply -f FindaDoctor-BE/service.yaml
           kubectl apply -f FindaDoctor-FE/deployment.yaml
           kubectl apply -f FindaDoctor-FE/service.yaml
+          kubectl apply -f FindaDoctor-BE/kubernetes-secrets.yaml
 
       - name: Verify deployment
         run: |
