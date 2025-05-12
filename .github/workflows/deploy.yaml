@@ -27,11 +27,21 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Debug directory structure
+      - name: Debug - List directory structure
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -la
+          echo "Repository structure:"
+          find . -type d -maxdepth 2
+
       # Build and push Backend
       - name: Build and push Backend Docker image
-        uses: docker/build-push-action@v4 # Using build-push-action for better caching
+        uses: docker/build-push-action@v4
         with:
-          context: ./app/FindaDoctor-BE
+          context: ./FindaDoctor-BE
           push: true
           tags: mbilalmehmood/findadoctor-backend:latest
 
@@ -39,17 +49,17 @@ jobs:
       - name: Build and push Frontend Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./app/FindaDoctor-FE
+          context: ./FindaDoctor-FE
           push: true
           tags: mbilalmehmood/findadoctor-frontend:latest
 
       - name: Deploy to Minikube
         run: |
-          kubectl apply -f app/FindaDoctor-BE/kubernetes-secrets.yaml
-          kubectl apply -f app/FindaDoctor-BE/deployment.yaml
-          kubectl apply -f app/FindaDoctor-BE/service.yaml
-          kubectl apply -f app/FindaDoctor-FE/deployment.yaml
-          kubectl apply -f app/FindaDoctor-FE/service.yaml
+          kubectl apply -f FindaDoctor-BE/kubernetes-secrets.yaml
+          kubectl apply -f FindaDoctor-BE/deployment.yaml
+          kubectl apply -f FindaDoctor-BE/service.yaml
+          kubectl apply -f FindaDoctor-FE/deployment.yaml
+          kubectl apply -f FindaDoctor-FE/service.yaml
 
       - name: Verify deployment
         run: |
