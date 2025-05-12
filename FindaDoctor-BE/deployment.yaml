@@ -50,6 +50,11 @@ spec:
             secretKeyRef:
               name: findadoctor-backend-secrets
               key: EMAIL_USER
+        - name: STRIPE_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: findadoctor-backend-secrets
+              key: STRIPE_SECRET_KEY
         - name: EMAIL_PASS
           valueFrom:
             secretKeyRef:
