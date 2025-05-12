@@ -63,11 +63,17 @@ jobs:
 
       - name: Deploy to Minikube
         run: |
+          # Apply secrets first
+          kubectl apply -f FindaDoctor-BE/kubernetes-secrets.yaml
+          
+          # Wait for secrets to be fully available
+          sleep 5
+          
+          # Then apply deployments and services
           kubectl apply -f FindaDoctor-BE/deployment.yaml
           kubectl apply -f FindaDoctor-BE/service.yaml
           kubectl apply -f FindaDoctor-FE/deployment.yaml
           kubectl apply -f FindaDoctor-FE/service.yaml
-          kubectl apply -f FindaDoctor-BE/kubernetes-secrets.yaml
 
       - name: Verify deployment
         run: |
